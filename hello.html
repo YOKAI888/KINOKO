@@ -6,13 +6,15 @@
 <title>🧠 管理人のあいさつ⚡️ | 🍄合同会社 菌糸™</title>
 <style>
 body {
-  /* 背景を深い紫〜黒にして、ピンクを際立たせる */
   background-color: #0b0015;
-  color: #fef0f5; /* 本文：桜の白に近い淡いピンク */
+  color: #fef0f5;
   font-family: "MS Gothic", monospace;
   margin: 0;
   text-align: center;
-  overflow: hidden;
+  /* ↓ ここを直した！overflow:hidden → x方向だけhidden、y方向はスクロールOK */
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* iOSのスムーズスクロール */
 }
 
 #mycelium {
@@ -20,7 +22,6 @@ body {
   top: 0; left: 0; width: 100%; height: 100%;
   z-index: -2;
   pointer-events: none;
-  /* 背景グラデーションをピンク・パステルに統一 */
   background: radial-gradient(circle at center, rgba(255,192,203,0.15) 0%, transparent 70%);
   animation: spores 5s infinite ease-in-out alternate;
 }
@@ -41,16 +42,17 @@ body {
   position: relative;
   z-index: 2;
   max-width: 800px;
-  margin: 100px auto;
-  /* コンテナ背景も深紫色に */
+  margin: 60px auto 80px; /* 上下余白を調整 */
   background: rgba(15, 0, 25, 0.75);
   border-radius: 20px;
   padding: 40px;
-  /* ピンクの発光と境界線 */
   box-shadow: 0 0 35px rgba(255, 182, 193, 0.4); 
   border: 1px solid rgba(255, 192, 203, 0.3);
   backdrop-filter: blur(8px);
   animation: fadeIn 2s ease;
+  /* ↓ スマホでコンテナがはみ出さないように */
+  box-sizing: border-box;
+  width: calc(100% - 32px);
 }
 
 @keyframes fadeIn {
@@ -67,7 +69,7 @@ h1 {
 
 h2 {
   font-size: 1.2em;
-  color: #ffe1ff; /* サブタイトル：パステルパープルピンク */
+  color: #ffe1ff;
   margin-top: 0;
   font-weight: normal;
 }
@@ -75,7 +77,7 @@ h2 {
 p {
   line-height: 1.8;
   font-size: 1em;
-  color: #fef0f5; /* 本文：桜の白に近い淡いピンク */
+  color: #fef0f5;
   margin: 20px auto;
   width: 90%;
 }
@@ -85,7 +87,6 @@ hr {
   height: 2px;
   width: 80%;
   margin: 30px auto;
-  /* 仕切り線：ユニコーン・グラデーション（ピンク、パープル、イエロー、ブルー、ピンク） */
   background: linear-gradient(90deg, #ffe1ff, #c1a3e4, #fbe88b, #a6d0e4, #ffe1ff);
   animation: shine 8s linear infinite;
 }
@@ -98,12 +99,11 @@ hr {
 .button {
   display: inline-block;
   margin-top: 20px;
-  color: #2a0033; /* ボタン文字色：深紫 */
+  color: #2a0033;
   text-decoration: none;
   font-size: 1em;
   padding: 10px 25px;
   border-radius: 12px;
-  /* ボタン：パステル・グラデーション */
   background: linear-gradient(45deg, #ffe1ff, #e0ffff, #fff7d1, #ffe1ff);
   box-shadow: 0 0 15px rgba(255, 192, 203, 0.5);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
@@ -121,17 +121,15 @@ hr {
   text-align: center; opacity: 0;
   transition: opacity 1s ease;
   font-size: 0.9em; 
-  color: #ffeaff; /* メッセージ：パステルピンク */
+  color: #ffeaff;
 }
 
-/* ====== 💥 爆発する三角形 ====== */
 .shard {
   position: fixed;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  /* 三角形の破片もパステルピンクに */
   border-bottom: 20px solid #ffe1ff;
   pointer-events: none;
   z-index: 9999;
@@ -144,7 +142,7 @@ hr {
 <div id="mycelium"></div>
 
 <div class="container">
-  <h1>🧠 管理人から皆様へ⚡️</h1>
+  <h1>🧠 あたくしから皆様へ⚡️</h1>
   <h2>—— にーとの輝星より ——</h2>
 
   <p>
@@ -158,10 +156,10 @@ hr {
   <hr>
 
   <p>
-    わたし自身は、絵描きであり、ただの無職であり、誠に勝手ながら、<br>
+    わたし自身は、絵描きであり、ただの無職であり、<br>
     一生「未完成」であり続ける存在でもあります。<br>
     このサイトは、そんな未完成な自分が、未完成のまま世界と共存するための<br>
-    “菌糸ネットワーク” の一部なんだと思ってください🍄
+    "菌糸ネットワーク" の一部だと思って頂けると、幸いです🍄
   </p>
 
   <hr>
@@ -172,7 +170,7 @@ hr {
     菌糸™より、菌をこめて（　´_ゝ`）ノ🍄
   </p>
 
-  <a href="index.html" class="button">🍄 トップページに戻る</a><br>
+  <a href="index.html" class="button">🍄 もどる❓</a><br>
   <a href="profile.html" class="button">🧠 にーとの輝星について ⚡️</a>
 </div>
 
@@ -203,12 +201,11 @@ function draw() {
     s.o += (Math.random() - 0.5) * 0.05;
     s.o = Math.max(0.1, Math.min(1, s.o));
     
-    // 胞子のグラデーション：ピンク、パープル、イエロー、ブルー、パステル
     const colors = ['#ffe1ff', '#c1a3e4', '#fbe88b', '#a6d0e4', '#ffeaff'];
     const color = colors[Math.floor((s.x / w) * colors.length)];
     
     ctx.beginPath();
-    ctx.fillStyle = `${color}${Math.floor(s.o * 255).toString(16).padStart(2, '0')}`; // アルファ値を追加
+    ctx.fillStyle = `${color}${Math.floor(s.o * 255).toString(16).padStart(2, '0')}`;
     ctx.arc(s.x, s.y, s.r * s.z, 0, Math.PI * 2);
     ctx.fill();
   });
@@ -218,6 +215,7 @@ function draw() {
 window.addEventListener("resize", resize);
 resize(); draw();
 
+// マウスムーブはスマホでは動かないので、タッチにも対応
 document.addEventListener("mousemove", (e) => {
   const x = (e.clientX / window.innerWidth - 0.5) * 2;
   const y = (e.clientY / window.innerHeight - 0.5) * 2;
@@ -239,7 +237,7 @@ document.onkeydown = resetIdleTimer;
 /* ====== 💥 三角形爆発エフェクト ====== */
 document.addEventListener('click', (e) => {
   const shardCount = 12;
-  const colors = ['#ffe1ff', '#c1a3e4', '#fbe88b', '#a6d0e4', '#ffeaff']; // ユニコーン・パステル
+  const colors = ['#ffe1ff', '#c1a3e4', '#fbe88b', '#a6d0e4', '#ffeaff'];
 
   for (let i = 0; i < shardCount; i++) {
     const shard = document.createElement('div');
