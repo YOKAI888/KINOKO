@@ -171,7 +171,7 @@
 
   <div class="btn-wrap">
     <button class="summon-btn" onclick="summon()">注文すんの（　´_ゝ`）？</button>
-    <a href="index.html" class="home-btn">お会計（帰還）</a>
+    <a href="index.html" class="home-btn">おあいそ</a>
   </div>
 </div>
 
@@ -179,7 +179,7 @@
 
 <script>
 const foods = ["🍣", "🐟", "🦑", "🐡", "🦪", "🐚", "🐠", "🐣", "🦠", "🍝", "🍔", "🍜", "🐙", "🍕", "🍤", "🍙"];
-const funnyLines = ["カラスミって…なんなんすかね（　´_ゝ`）", "うめえ（；´_ゝ`）", "大抵の食いもんは飲めるんすよね（　´_ゝ`）", "ふーん、よく食うやん（　´_ゝ`）", "ぶぶ漬けを、啜っても、あーきません🎵"];
+const funnyLines = ["カラスミって…なんなんすかね（　´_ゝ`）", "うめえ（；´_ゝ`）", "大抵の食いもんは飲めるんすよね（　´_ゝ`）", "ふーん、よく食うやん（　´_ゝ`）", "ぶぶ漬けを、啜っても、あーきません🎵", "ゆ○り、飲んでなくない？"];
 
 function summon() {
   const log = document.getElementById("log");
@@ -191,7 +191,7 @@ function summon() {
   const chosen = foods[Math.floor(Math.random() * foods.length)];
   const line = funnyLines[Math.floor(Math.random() * funnyLines.length)];
   const div = document.createElement("div");
-  div.textContent = `🌀 ${chosen} 召喚：${line}`;
+  div.textContent = `🌀 ${chosen} めじぃ❗️：${line}`;
   log.prepend(div);
   
   const el = document.createElement("div");
@@ -273,10 +273,10 @@ document.addEventListener('click', (e) => {
     ], { duration: 600 }).onfinish = () => shard.remove();
   }
 
-  // 2. 30%の確率で大量爆撃（スマホは20個、PCは40個・回転なし）
-  if (Math.random() < 0.3) {
+  // 2. 70%の確率で大量爆撃（スマホは20個、PCは55個・回転なし）
+  if (Math.random() < 0.7) {
     const isMobile = window.innerWidth < 600;
-    const bombCount = isMobile ? 20 : 40;
+    const bombCount = isMobile ? 20 : 55;
     for (let i = 0; i < bombCount; i++) {
       const bomb = document.createElement("div");
       bomb.className = "floating-food bomb-anim";
