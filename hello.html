@@ -6,8 +6,9 @@
 <title>🧠 管理人のあいさつ⚡️ | 🍄合同会社 菌糸™</title>
 <style>
 body {
-  background-color: #030e05;
-  color: #ddd;
+  /* 背景を深い紫〜黒にして、ピンクを際立たせる */
+  background-color: #0b0015;
+  color: #fef0f5; /* 本文：桜の白に近い淡いピンク */
   font-family: "MS Gothic", monospace;
   margin: 0;
   text-align: center;
@@ -16,13 +17,11 @@ body {
 
 #mycelium {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   z-index: -2;
   pointer-events: none;
-  background: radial-gradient(circle at center, rgba(255,182,193,0.1) 0%, transparent 70%);
+  /* 背景グラデーションをピンク・パステルに統一 */
+  background: radial-gradient(circle at center, rgba(255,192,203,0.15) 0%, transparent 70%);
   animation: spores 5s infinite ease-in-out alternate;
 }
 
@@ -33,25 +32,23 @@ body {
 
 #spores {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   z-index: -1;
   pointer-events: none;
 }
 
-/* メインカード */
 .container {
   position: relative;
   z-index: 2;
   max-width: 800px;
   margin: 100px auto;
-  background: rgba(10, 20, 25, 0.75); /* 背景を少し暗くして文字を読みやすく */
+  /* コンテナ背景も深紫色に */
+  background: rgba(15, 0, 25, 0.75);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 0 35px rgba(255, 182, 193, 0.35); 
-  border: 1px solid rgba(255, 192, 203, 0.25);
+  /* ピンクの発光と境界線 */
+  box-shadow: 0 0 35px rgba(255, 182, 193, 0.4); 
+  border: 1px solid rgba(255, 192, 203, 0.3);
   backdrop-filter: blur(8px);
   animation: fadeIn 2s ease;
 }
@@ -61,38 +58,35 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* タイトル部分 */
 h1 {
   font-size: 2em;
   margin-bottom: 0.3em;
   color: #fff;
-  text-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
+  text-shadow: 0 0 10px rgba(255, 182, 193, 0.6);
 }
 
 h2 {
   font-size: 1.2em;
-  color: #ffd1dc;
+  color: #ffe1ff; /* サブタイトル：パステルパープルピンク */
   margin-top: 0;
   font-weight: normal;
 }
 
-/* 【修正箇所】本文の文字色を淡いピンクに変更 */
 p {
   line-height: 1.8;
   font-size: 1em;
-  color: #fef0f5; /* 桜の白に近い淡いピンク */
+  color: #fef0f5; /* 本文：桜の白に近い淡いピンク */
   margin: 20px auto;
   width: 90%;
 }
 
-/* 虹色の仕切り線 */
 hr {
   border: none;
   height: 2px;
   width: 80%;
   margin: 30px auto;
-  background: linear-gradient(90deg,
-    #ffe1ff, #e0ffff, #fff7d1, #e0ffe1, #ffe1ff);
+  /* 仕切り線：ユニコーン・グラデーション（ピンク、パープル、イエロー、ブルー、ピンク） */
+  background: linear-gradient(90deg, #ffe1ff, #c1a3e4, #fbe88b, #a6d0e4, #ffe1ff);
   animation: shine 8s linear infinite;
 }
 
@@ -101,36 +95,47 @@ hr {
   to { filter: hue-rotate(360deg); }
 }
 
-/* ボタン共通デザイン */
 .button {
   display: inline-block;
   margin-top: 20px;
-  color: #030e05;
+  color: #2a0033; /* ボタン文字色：深紫 */
   text-decoration: none;
   font-size: 1em;
   padding: 10px 25px;
   border-radius: 12px;
-  background: linear-gradient(45deg,
-    #ffe1ff, #e0ffff, #fff7d1, #e0ffe1, #ffe1ff);
-  box-shadow: 0 0 15px rgba(255, 192, 203, 0.4);
+  /* ボタン：パステル・グラデーション */
+  background: linear-gradient(45deg, #ffe1ff, #e0ffff, #fff7d1, #ffe1ff);
+  box-shadow: 0 0 15px rgba(255, 192, 203, 0.5);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
+  font-weight: bold;
 }
 
 .button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255,255,255,0.4);
+  box-shadow: 0 0 25px rgba(255,255,255,0.6);
 }
 
-/* 菌糸メッセージ */
 #growMsg {
   position: fixed;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-  opacity: 0;
+  bottom: 10px; width: 100%;
+  text-align: center; opacity: 0;
   transition: opacity 1s ease;
-  font-size: 0.9em;
-  color: #ffd1dc;
+  font-size: 0.9em; 
+  color: #ffeaff; /* メッセージ：パステルピンク */
+}
+
+/* ====== 💥 爆発する三角形 ====== */
+.shard {
+  position: fixed;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  /* 三角形の破片もパステルピンクに */
+  border-bottom: 20px solid #ffe1ff;
+  pointer-events: none;
+  z-index: 9999;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));
 }
 </style>
 </head>
@@ -174,7 +179,6 @@ hr {
 <div id="growMsg">……こころやすくお過ごしください( 　´_ゝ`)</div>
 
 <script>
-// (スクリプト部分は前回と同じです)
 const canvas = document.getElementById("spores");
 const ctx = canvas.getContext("2d");
 let w, h, spores = [];
@@ -183,12 +187,9 @@ function resize() {
   w = canvas.width = window.innerWidth;
   h = canvas.height = window.innerHeight;
   spores = Array.from({length: 150}, () => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    r: Math.random() * 2,
-    o: Math.random(),
-    s: Math.random() * 0.5 + 0.2,
-    z: Math.random() * 2
+    x: Math.random() * w, y: Math.random() * h,
+    r: Math.random() * 2, o: Math.random(),
+    s: Math.random() * 0.5 + 0.2, z: Math.random() * 2
   }));
 }
 
@@ -197,17 +198,17 @@ function draw() {
   spores.forEach(s => {
     s.x += Math.sin(Date.now() * 0.0001 + s.y) * 0.1 * s.z;
     s.y += Math.cos(Date.now() * 0.00005 + s.x) * 0.1 * s.z;
-    if (s.x < 0) s.x = w;
-    if (s.x > w) s.x = 0;
-    if (s.y < 0) s.y = h;
-    if (s.y > h) s.y = 0;
-
+    if (s.x < 0) s.x = w; if (s.x > w) s.x = 0;
+    if (s.y < 0) s.y = h; if (s.y > h) s.y = 0;
     s.o += (Math.random() - 0.5) * 0.05;
     s.o = Math.max(0.1, Math.min(1, s.o));
-
-    const hue = (s.x / w) * 360;
+    
+    // 胞子のグラデーション：ピンク、パープル、イエロー、ブルー、パステル
+    const colors = ['#ffe1ff', '#c1a3e4', '#fbe88b', '#a6d0e4', '#ffeaff'];
+    const color = colors[Math.floor((s.x / w) * colors.length)];
+    
     ctx.beginPath();
-    ctx.fillStyle = `hsla(${hue}, 80%, 70%, ${s.o})`;
+    ctx.fillStyle = `${color}${Math.floor(s.o * 255).toString(16).padStart(2, '0')}`; // アルファ値を追加
     ctx.arc(s.x, s.y, s.r * s.z, 0, Math.PI * 2);
     ctx.fill();
   });
@@ -215,8 +216,7 @@ function draw() {
 }
 
 window.addEventListener("resize", resize);
-resize();
-draw();
+resize(); draw();
 
 document.addEventListener("mousemove", (e) => {
   const x = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -226,10 +226,7 @@ document.addEventListener("mousemove", (e) => {
 
 let idleTimer;
 const growMsg = document.getElementById("growMsg");
-
-function showGrowMsg() {
-  growMsg.style.opacity = 1;
-}
+function showGrowMsg() { growMsg.style.opacity = 1; }
 function resetIdleTimer() {
   growMsg.style.opacity = 0;
   clearTimeout(idleTimer);
@@ -238,6 +235,43 @@ function resetIdleTimer() {
 window.onload = resetIdleTimer;
 document.onmousemove = resetIdleTimer;
 document.onkeydown = resetIdleTimer;
+
+/* ====== 💥 三角形爆発エフェクト ====== */
+document.addEventListener('click', (e) => {
+  const shardCount = 12;
+  const colors = ['#ffe1ff', '#c1a3e4', '#fbe88b', '#a6d0e4', '#ffeaff']; // ユニコーン・パステル
+
+  for (let i = 0; i < shardCount; i++) {
+    const shard = document.createElement('div');
+    shard.className = 'shard';
+    
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = Math.random() * 15 + 5;
+    shard.style.borderBottom = `${size * 2}px solid ${color}`;
+    shard.style.borderLeftWidth = `${size}px`;
+    shard.style.borderRightWidth = `${size}px`;
+    shard.style.left = e.clientX + 'px';
+    shard.style.top = e.clientY + 'px';
+
+    const angle = Math.random() * Math.PI * 2;
+    const velocity = Math.random() * 150 + 50;
+    const tx = Math.cos(angle) * velocity;
+    const ty = Math.sin(angle) * velocity;
+    const rot = Math.random() * 360;
+
+    document.body.appendChild(shard);
+
+    const anim = shard.animate([
+      { transform: 'translate(-50%, -50%) rotate(0deg) scale(1)', opacity: 1 },
+      { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(${rot}deg) scale(0)`, opacity: 0 }
+    ], {
+      duration: Math.random() * 500 + 500,
+      easing: 'cubic-bezier(0, .9, .57, 1)'
+    });
+
+    anim.onfinish = () => shard.remove();
+  }
+});
 </script>
 </body>
 </html>

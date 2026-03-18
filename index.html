@@ -36,24 +36,20 @@ body {
   pointer-events: none;
 }
 
-/* ====== 💖 メインコンテンツの枠（復活＆強化） ====== */
+/* ====== 💖 メインコンテンツの枠 ====== */
 .main-container {
   position: relative;
   z-index: 2;
   max-width: 850px;
   margin: 60px auto;
-  background: rgba(10, 0, 20, 0.7); /* 背景に馴染む深紫色 */
+  background: rgba(10, 0, 20, 0.7);
   border-radius: 30px;
   padding: 40px 20px;
-  
-  /* ピンクの可愛い枠：発光と境界線 */
   box-shadow: 0 0 40px rgba(255, 182, 193, 0.35); 
   border: 2px solid rgba(255, 192, 203, 0.25);
-  
   backdrop-filter: blur(10px);
 }
 
-/* ====== 🍄 タイトル ====== */
 h1 {
   margin-top: 20px;
   font-size: 2.4em;
@@ -67,7 +63,6 @@ h1 {
   color: #ffeaff;
 }
 
-/* ====== 🌈 流れるメッセージ ====== */
 .marquee {
   position: relative;
   overflow: hidden;
@@ -84,7 +79,6 @@ h1 {
   to { transform: translateX(-100%); }
 }
 
-/* ====== 🍬 メインボタン（虹色） ====== */
 .buttons {
   margin: 30px auto;
   display: flex;
@@ -92,7 +86,7 @@ h1 {
   justify-content: center;
   gap: 25px;
 }
-.buttons a { margin: 0; display: inline-block; } /* Aタグの余白リセット */
+.buttons a { text-decoration: none; }
 
 button {
   background: linear-gradient(45deg, #ffd6ff, #eaffff, #fff2e0, #ffe1ff);
@@ -112,7 +106,6 @@ button:hover {
   box-shadow: 0 0 30px rgba(255,255,255,0.7);
 }
 
-/* ====== ✨ リットリンク用ミニボタン ====== */
 .litlink-mini-button {
   display: inline-block;
   background: linear-gradient(45deg, #ffe1ff, #e0ffff, #fff7d1, #e0ffe1, #ffe1ff);
@@ -138,7 +131,6 @@ button:hover {
   100% { background-position: 0% 50%; }
 }
 
-/* ====== 💫 リンク ====== */
 .sub-links { margin: 30px auto; }
 .sub-links a {
   display: inline-block;
@@ -154,7 +146,6 @@ button:hover {
   transform: translateY(-2px);
 }
 
-/* ====== 🍄 noteエリア（直リンク対応） ====== */
 #note-box {
   width: 85%;
   max-width: 600px;
@@ -184,7 +175,7 @@ button:hover {
 }
 .note-item:last-child { border-bottom: none; }
 .note-item a {
-  display: inline; /* ブロック解除 */
+  display: inline;
   color: #c000a0;
   text-decoration: underline;
   margin: 0; font-size: 1em;
@@ -192,7 +183,6 @@ button:hover {
 .note-item a:hover { color: #ff0088; }
 .note-date { font-size: 11px; color: #666; display: block; margin-top: 4px; }
 
-/* ====== 🍄 菌糸メッセージ ====== */
 #growMsg {
   position: fixed;
   bottom: 10px; width: 100%;
@@ -201,7 +191,19 @@ button:hover {
   font-size: 0.9em; color: #ffccff;
 }
 
-/* ====== ✨ 星屑 ====== */
+/* ====== ✨ 爆発する三角形 ====== */
+.shard {
+  position: fixed;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #c1a3e4;
+  pointer-events: none;
+  z-index: 9999;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));
+}
+
 @keyframes twinkle { 0%,100% {opacity: 0.4;} 50% {opacity: 1;} }
 .star {
   position: absolute; background: white; border-radius: 50%;
@@ -264,7 +266,7 @@ button:hover {
 <div id="growMsg">……胞子がふわふわ舞っている（；´_ゝ`）</div>
 
 <script>
-/* (スクリプト部分はきららさんの最新版を維持しています) */
+/* ====== 🌌 胞子＆星屑アニメーション ====== */
 const canvas = document.getElementById("spores");
 const ctx = canvas.getContext("2d");
 let w, h, spores = [];
@@ -298,12 +300,14 @@ function draw() {
 window.addEventListener("resize", resize);
 resize(); draw();
 
+/* ====== 🖱️ マウス追従 ====== */
 document.addEventListener("mousemove", (e) => {
   const x = (e.clientX / window.innerWidth - 0.5) * 2;
   const y = (e.clientY / window.innerHeight - 0.5) * 2;
   canvas.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
 });
 
+/* ====== 🍄 アイドル時メッセージ ====== */
 let idleTimer;
 const growMsg = document.getElementById("growMsg");
 function showGrowMsg() { growMsg.style.opacity = 1; }
@@ -316,6 +320,7 @@ window.onload = resetIdleTimer;
 document.onmousemove = resetIdleTimer;
 document.onkeydown = resetIdleTimer;
 
+/* ====== ✨ 星屑生成 ====== */
 for (let i = 0; i < 50; i++) {
   const star = document.createElement("div");
   star.classList.add("star");
@@ -325,6 +330,43 @@ for (let i = 0; i < 50; i++) {
   star.style.animationDuration = 2 + Math.random() * 3 + "s";
   document.body.appendChild(star);
 }
+
+/* ====== 💥 三角形爆発エフェクト ====== */
+document.addEventListener('click', (e) => {
+  const shardCount = 12;
+  const colors = ['#f9c5d1', '#a6d0e4', '#c1a3e4', '#fbe88b', '#a8f0c6'];
+
+  for (let i = 0; i < shardCount; i++) {
+    const shard = document.createElement('div');
+    shard.className = 'shard';
+    
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = Math.random() * 15 + 5;
+    shard.style.borderBottom = `${size * 2}px solid ${color}`;
+    shard.style.borderLeftWidth = `${size}px`;
+    shard.style.borderRightWidth = `${size}px`;
+    shard.style.left = e.clientX + 'px';
+    shard.style.top = e.clientY + 'px';
+
+    const angle = Math.random() * Math.PI * 2;
+    const velocity = Math.random() * 150 + 50;
+    const tx = Math.cos(angle) * velocity;
+    const ty = Math.sin(angle) * velocity;
+    const rot = Math.random() * 360;
+
+    document.body.appendChild(shard);
+
+    const anim = shard.animate([
+      { transform: 'translate(-50%, -50%) rotate(0deg) scale(1)', opacity: 1 },
+      { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(${rot}deg) scale(0)`, opacity: 0 }
+    ], {
+      duration: Math.random() * 500 + 500,
+      easing: 'cubic-bezier(0, .9, .57, 1)'
+    });
+
+    anim.onfinish = () => shard.remove();
+  }
+});
 </script>
 </body>
 </html>
