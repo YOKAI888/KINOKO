@@ -36,7 +36,7 @@
     /* ====== 💖 メインコンテナ ====== */
     .outer-container {
       position: relative;
-      z-index: 10; /* パーティクルより上に */
+      z-index: 10;
       max-width: 600px;
       margin: 40px auto;
       width: calc(100% - 32px);
@@ -135,7 +135,6 @@ const foods = ["🍣", "🐟", "🦑", "🐡", "🦪", "🐚", "🐠", "🐣", "
 const funnyLines = ["カラスミって…なんなんすかね（　´_ゝ`）", "うめえ（；´_ゝ`）", "大抵の食いもんは飲めるんすよね（　´_ゝ`）", "ふーん、よく食うじゃん（　´_ゝ`）", "ぶぶ漬けを、啜っても、あーきません🎵", "ゆ○り、飲んでなくない？"];
 
 function summon(e) {
-  // ボタンクリックが背景のclickイベントに伝わらないようにする（爆撃暴発防止）
   e.stopPropagation();
 
   const log = document.getElementById("log");
@@ -203,12 +202,11 @@ document.addEventListener("mousemove", (e) => {
 
 /* ====== クリック演出：背景のみ爆撃抽選 ====== */
 function triggerEffects(clientX, clientY, target) {
-  // ボタンやリンクをクリックした時は爆撃抽選をしない
   if (target.closest('button') || target.closest('a')) return;
 
   const colors = ['#ffe1ff', '#c1a3e4', '#fbe88b', '#a6d0e4'];
   
-  // 1. 三角形四散（背景クリック時のみ）
+  // 三角形四散
   for (let i = 0; i < 10; i++) {
     const shard = document.createElement('div');
     shard.className = 'shard';
@@ -224,10 +222,10 @@ function triggerEffects(clientX, clientY, target) {
     ], { duration: 600 }).onfinish = () => shard.remove();
   }
 
-  // 2. 5%の低確率で爆撃
-  if (Math.random() < 0.05) {
+  // ✅ 15%の確率で爆撃（修正済み）
+  if (Math.random() < 0.30) {
     const isMobile = window.innerWidth < 600;
-    const isSuperBomb = Math.random() < 0.3; 
+    const isSuperBomb = Math.random() < 0.15; // ✅ スーパー爆撃も15%（修正済み）
     const bombCount = isMobile ? (isSuperBomb ? 40 : 15) : (isSuperBomb ? 80 : 35);
 
     for (let i = 0; i < bombCount; i++) {
