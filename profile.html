@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🧠( 👁️ _ 👁️ )⚡️</title>
+  <title>✋( 👁️ _ 👁️ )🤚</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;900&display=swap');
 
@@ -24,7 +24,6 @@
       user-select: none;
       color: var(--text-main);
       position: relative;
-      /* デフォルトはスクロールON */
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
@@ -44,6 +43,22 @@
       z-index: -2;
       pointer-events: none;
       will-change: transform;
+    }
+
+    /* ====== ✨ タップスポットライト ====== */
+    #touch-spotlight {
+      position: fixed;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255,192,255,0.35) 0%, rgba(193,163,228,0.15) 40%, transparent 70%);
+      transition: opacity 0.15s ease-out;
+    }
+    #touch-spotlight.active {
+      opacity: 1;
     }
 
     .brain-particle {
@@ -78,7 +93,6 @@
     }
     @keyframes flicker { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.5; } }
 
-    /* ====== プロフィールカード ====== */
     .profile-card {
       max-width: 420px;
       width: calc(100% - 32px);
@@ -132,7 +146,6 @@
       50% { transform: translateY(-10px); }
     }
 
-    /* ====== 召喚ログ：スマホでは下に並ぶ ====== */
     #summon-log {
       position: fixed;
       top: 15vh; right: 20px;
@@ -159,29 +172,15 @@
     body.ritual-glow { animation: ritualGlow 0.4s ease forwards; }
     @keyframes ritualGlow { 0% { filter: brightness(1); } 50% { filter: brightness(1.5) saturate(1.2); } 100% { filter: brightness(1); } }
 
-    /* ====== スマホ対応 ====== */
     @media (max-width: 700px) {
       .profile-card {
         margin: 16px auto 16px;
         padding: 20px 20px 24px;
         border-radius: 24px;
       }
-
-      .profile-card h1 {
-        font-size: 2rem; /* デカすぎるタイトルを縮小 */
-      }
-
-      .profile-card p {
-        font-size: 0.95rem; /* 本文も少し縮小 */
-        margin: 6px 0;
-      }
-
-      .cloud {
-        width: 160px;
-        height: 60px;
-      }
-
-      /* ログはカード下に通常フローで表示 */
+      .profile-card h1 { font-size: 2rem; }
+      .profile-card p { font-size: 0.95rem; margin: 6px 0; }
+      .cloud { width: 160px; height: 60px; }
       #summon-log {
         position: relative;
         top: auto; right: auto;
@@ -191,15 +190,23 @@
         margin: 0 auto 60px;
         box-sizing: border-box;
       }
+      /* スポットライトをスマホでは少し大きく */
+      #touch-spotlight {
+        width: 420px;
+        height: 420px;
+      }
     }
   </style>
 </head>
 <body>
   <div id="mycelium"></div>
   <div id="parallax-bg"></div>
+  <!-- タップスポットライト -->
+  <div id="touch-spotlight"></div>
+
   <div class="profile-card">
     <div class="cloud"></div>
-    <a href="index.html" class="home-link"><h1>⚡️( 👁️ _ 👁️ )⚡️</h1></a>
+    <a href="index.html" class="home-link"><h1>✋( 👁️ _ 👁️ )🤚</h1></a>
     <p><span class="profile-label">名前：</span>⚡️にーとの輝星⚡️</p>
     <p><span class="profile-label">出自：</span>🇯🇵✖️🇨🇭</p>
     <p><span class="profile-label">分類：</span>無職</p>
@@ -223,6 +230,7 @@
       ];
 
       const parallaxBg = document.getElementById('parallax-bg');
+      const spotlight = document.getElementById('touch-spotlight');
       const fragment = document.createDocumentFragment();
 
       for (let i = 0; i < 40; i++) {
@@ -236,11 +244,9 @@
       const PARTICLE_COUNT = 60;
       const MIN_DIST = 8;
       const placed = [];
-
       function isFarEnough(x, y) {
         return placed.every(p => Math.hypot(p.x - x, p.y - y) >= MIN_DIST);
       }
-
       let attempts = 0, count = 0;
       while (count < PARTICLE_COUNT && attempts < PARTICLE_COUNT * 10) {
         attempts++;
@@ -255,17 +261,17 @@
         fragment.appendChild(p);
         count++;
       }
-
       parallaxBg.appendChild(fragment);
 
+      // ====== パラックス：マウス & タッチ両対応 ======
       let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
       let rafId = null;
 
-      document.addEventListener('mousemove', (e) => {
-        targetX = (window.innerWidth  / 2 - e.clientX) / 30;
-        targetY = (window.innerHeight / 2 - e.clientY) / 30;
+      function setParallaxTarget(clientX, clientY) {
+        targetX = (window.innerWidth  / 2 - clientX) / 30;
+        targetY = (window.innerHeight / 2 - clientY) / 30;
         if (!rafId) rafId = requestAnimationFrame(animateParallax);
-      });
+      }
 
       function animateParallax() {
         currentX += (targetX - currentX) * 0.1;
@@ -278,6 +284,41 @@
         }
       }
 
+      // PCはマウスムーブで常時追従
+      document.addEventListener('mousemove', (e) => {
+        setParallaxTarget(e.clientX, e.clientY);
+      });
+
+      // ====== スマホ：タッチでパラックス＋スポットライト ======
+      let spotlightTimer = null;
+
+      document.addEventListener('touchmove', (e) => {
+        const t = e.touches[0];
+        setParallaxTarget(t.clientX, t.clientY);
+        showSpotlight(t.clientX, t.clientY);
+      }, { passive: true });
+
+      document.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        setParallaxTarget(t.clientX, t.clientY);
+        showSpotlight(t.clientX, t.clientY);
+      }, { passive: true });
+
+      document.addEventListener('touchend', () => {
+        // 指を離したら少し遅れてフェードアウト
+        spotlightTimer = setTimeout(() => {
+          spotlight.classList.remove('active');
+        }, 400);
+      });
+
+      function showSpotlight(x, y) {
+        clearTimeout(spotlightTimer);
+        spotlight.style.left = x + 'px';
+        spotlight.style.top  = y + 'px';
+        spotlight.classList.add('active');
+      }
+
+      // ====== 召喚システム ======
       const cloud = document.querySelector('.cloud');
       const summonLog = document.getElementById('summon-log');
 

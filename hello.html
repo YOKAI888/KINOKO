@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🧠 管理人のあいさつ⚡️ | 🍄合同会社 菌糸™</title>
+<title>🧠 ごあいさつ ⚡️ </title>
 <style>
 body {
   background-color: #0b0015;
@@ -11,10 +11,9 @@ body {
   font-family: "MS Gothic", monospace;
   margin: 0;
   text-align: center;
-  /* ↓ ここを直した！overflow:hidden → x方向だけhidden、y方向はスクロールOK */
   overflow-x: hidden;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; /* iOSのスムーズスクロール */
+  -webkit-overflow-scrolling: touch; 
 }
 
 #mycelium {
@@ -50,7 +49,6 @@ body {
   border: 1px solid rgba(255, 192, 203, 0.3);
   backdrop-filter: blur(8px);
   animation: fadeIn 2s ease;
-  /* ↓ スマホでコンテナがはみ出さないように */
   box-sizing: border-box;
   width: calc(100% - 32px);
 }
@@ -142,8 +140,8 @@ hr {
 <div id="mycelium"></div>
 
 <div class="container">
-  <h1>🧠 皆々様へ⚡️</h1>
-  <h2>—— にーとの輝星より ——</h2>
+  <h1>🧠 らっしゃい ⚡️</h1>
+  <h2>— にーとの輝星より —</h2>
 
   <p>
     ここまで来てくれてありがとう🍄<br>
@@ -181,7 +179,7 @@ hr {
   <a href="profile.html" class="button">🧠 にーとの輝星について ⚡️</a>
 </div>
 
-<div id="growMsg">……こころやすくお過ごしください( 　´_ゝ`)</div>
+<div id="growMsg">🍄こころやすくお過ごしください( 　´_ゝ`)</div>
 
 <script>
 const canvas = document.getElementById("spores");
@@ -222,7 +220,6 @@ function draw() {
 window.addEventListener("resize", resize);
 resize(); draw();
 
-// マウスムーブはスマホでは動かないので、タッチにも対応
 document.addEventListener("mousemove", (e) => {
   const x = (e.clientX / window.innerWidth - 0.5) * 2;
   const y = (e.clientY / window.innerHeight - 0.5) * 2;
