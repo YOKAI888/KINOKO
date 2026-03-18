@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧠 魂の準備ページ ⚡️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap');
+
+    :root {
+      --u-pink: #f9c5d1;
+      --u-blue: #a6d0e4;
+      --u-purple: #c1a3e4;
+      --u-yellow: #fbe88b;
+      --u-green: #a8f0c6;
+      --text-main: #4a2e5e;
+      /* ユニコーン・グラデーション */
+      --uni-grad: linear-gradient(135deg, var(--u-pink), var(--u-blue), var(--u-purple), var(--u-yellow), var(--u-green));
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: 'Baloo 2', 'Yu Gothic', sans-serif;
+      background: var(--uni-grad);
+      background-size: 400% 400%;
+      animation: drift 15s ease infinite;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @keyframes drift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      text-shadow: 0 0 15px var(--u-purple), 0 0 5px rgba(0,0,0,0.1);
+      letter-spacing: 0.1em;
+    }
+
+    .tagline {
+      margin-bottom: 2rem;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 5px 20px;
+      border-radius: 20px;
+    }
+
+    form {
+      display: inline-block;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 3rem;
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(193, 163, 228, 0.5);
+      backdrop-filter: blur(10px);
+      border: 4px solid #fff;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 15px;
+      border-radius: 15px;
+      border-left: 8px solid var(--u-purple);
+    }
+
+    .question p {
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #5e4a8e;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      padding: 5px;
+      border-radius: 10px;
+    }
+
+    label:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: translateX(5px);
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.3);
+      accent-color: var(--u-purple);
+    }
+
+    button {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(45deg, #fff, var(--u-pink));
+      color: #5e4a8e;
+      font-size: 1.4rem;
+      font-weight: 900;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      font-family: 'Baloo 2', sans-serif;
+    }
+
+    button:hover {
+      transform: scale(1.1) rotate(-2deg);
+      box-shadow: 0 8px 25px var(--u-purple);
+      background: linear-gradient(45deg, var(--u-pink), #fff);
+    }
+
+    /* 🧠ふわふわ浮く装飾 */
+    .deco {
+      position: fixed;
+      font-size: 2rem;
+      opacity: 0.3;
+      z-index: -1;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-20px) rotate(20deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="deco" style="top:10%; left:10%;">🧠</div>
+  <div class="deco" style="top:20%; right:15%; animation-delay: 1s;">⚡️</div>
+  <div class="deco" style="bottom:15%; left:20%; animation-delay: 2s;">🍄</div>
+  <div class="deco" style="bottom:20%; right:10%; animation-delay: 3s;">✨</div>
+
+  <h1>魂の準備ページ</h1>
+  <div class="tagline">〜 「めじぃ❗️」に辿り着けるか、ぶぶ漬けか 〜</div>
+
+  <form id="soulForm">
+    <div class="question">
+      <p>Q1. 世界がもし1秒で終わるなら、何をする？</p>
+      <label><input type="radio" name="q1" value="a">叫ぶ 🔊</label>
+      <label><input type="radio" name="q1" value="b">踊る 💃</label>
+      <label><input type="radio" name="q1" value="c">見届ける 👁️</label>
+    </div>
+
+    <div class="question">
+      <p>Q2. 朝目覚めたら別の惑星にいた。どうする？</p>
+      <label><input type="radio" name="q2" value="a">探索する 🚀</label>
+      <label><input type="radio" name="q2" value="b">瞑想する 🧘</label>
+      <label><input type="radio" name="q2" value="c">寝直す 💤</label>
+    </div>
+
+    <button type="button" onclick="checkAnswers()">✨魂チェック完了✨</button>
+  </form>
+
+  <script>
+    const correctAnswers = {
+      q1: 'c',
+      q2: 'b'
+    };
+
+    function checkAnswers() {
+      let score = 0;
+      let total = Object.keys(correctAnswers).length;
+      for (let key in correctAnswers) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (selected && selected.value === correctAnswers[key]) {
+          score++;
+        }
+      }
+      
+      if (score === total) {
+        alert("合格！魂が澄み渡っていますね（　👁️_ゝ👁️）");
+        window.location.href = "morires.html"; 
+      } else {
+        alert("ぶぶ漬け食べなはれや( 　´_ゝ`)🍵");
+        window.location.href = "bubuzuke.html"; 
+      }
+    }
+  </script>
+</body>
+</html>
